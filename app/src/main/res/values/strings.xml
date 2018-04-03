@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">咿呀</string>
+    <string name="yiya_code">咿呀号</string>
+    <string name="yiya_code_hint">请输入您的咿呀号</string>
+    <string name="pass_word">密码：</string>
+    <string name="pass_word_hint">请输入密码</string>
+    <string name="yiya_login">登陆</string>
+    <string name="yaya_register">注册</string>
+</resources>
