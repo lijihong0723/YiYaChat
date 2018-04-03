@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.jerry.yiyachat.MainActivity;
 import com.jerry.yiyachat.R;
 import com.jerry.yiyachat.mvp.BaseMVPActivity;
 import com.jerry.yiyachat.mvp.BasePresenter;
@@ -39,6 +40,12 @@ public class LoginActivity
     @Override
     public void showError(String error) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void loginSucceed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     @OnClick({R.id.btn_login, R.id.btn_register})

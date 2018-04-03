@@ -8,14 +8,15 @@ import org.jivesoftware.smack.XMPPException;
 
 import java.io.IOException;
 
-public interface LoginContract {
+interface LoginContract {
 
     interface ILoginView extends BaseView {
         void showError(String error);
+        void loginSucceed();
     }
 
     interface ILoginModel {
-        public void login(String username, String password) throws IOException, XMPPException, SmackException, Exception;
+        void login(String username, String password) throws Exception;
     }
 
     abstract class LoginPresenter extends BasePresenter<ILoginView> {

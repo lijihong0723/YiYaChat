@@ -3,19 +3,16 @@ package com.jerry.yiyachat.login;
 import java.util.concurrent.Callable;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class LoginPresenter extends LoginContract.LoginPresenter {
+class LoginPresenter extends LoginContract.LoginPresenter {
 
     private LoginModel model;
 
-    public LoginPresenter() {
+    LoginPresenter() {
         model = new LoginModel();
     }
 
@@ -43,6 +40,8 @@ public class LoginPresenter extends LoginContract.LoginPresenter {
             public void onNext(String value) {
                 if (!value.equals("Succeed")) {
                     view.showError(value);
+                } else {
+                    view.loginSucceed();
                 }
             }
 

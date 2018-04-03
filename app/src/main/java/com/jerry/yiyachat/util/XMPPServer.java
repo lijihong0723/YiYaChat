@@ -13,10 +13,7 @@ import java.io.IOException;
 public class XMPPServer {
 
     private static AbstractXMPPConnection connection;
-
-    static {
-        SASLAuthentication.blacklistSASLMechanism("SCRAM-SHA-1");
-    }
+    private static String HOST_IP_ADDRESS = "39.107.248.129";
 
     public static AbstractXMPPConnection getConnection() {
 
@@ -35,12 +32,15 @@ public class XMPPServer {
     private static void createConnection() {
         XMPPTCPConnectionConfiguration config
                 = XMPPTCPConnectionConfiguration.builder()
-                .setHost("101.132.178.248")
-                .setServiceName("101.132.178.248")
+                .setHost(HOST_IP_ADDRESS)
+                .setServiceName(HOST_IP_ADDRESS)
                 .setPort(5222)
                 .setSecurityMode(ConnectionConfiguration.SecurityMode.disabled)
                 .setDebuggerEnabled(true)
                 .build();
+        SASLAuthentication.blacklistSASLMechanism("CRAM-MD5");
+        SASLAuthentication.blacklistSASLMechanism("DIGEST-MD5");
+        SASLAuthentication.unBlacklistSASLMechanism("PLAIN");
 
         connection = new XMPPTCPConnection(config);
     }
@@ -52,11 +52,7 @@ public class XMPPServer {
 
         try {
             connection.connect();
-        } catch (SmackException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (XMPPException e) {
+        } catch (SmackException | XMPPException | IOException e) {
             e.printStackTrace();
         }
     }
