@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import com.jerry.yiyachat.R;
 import com.jerry.yiyachat.main.message.MessageFragment;
+import com.jerry.yiyachat.main.roster.RosterFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ class MainFragmentViewPagerAdapter extends FragmentStatePagerAdapter {
         super(fm);
         fragments = new ArrayList<>();
         fragments.add(new MessageFragment());
+        fragments.add(new RosterFragment());
     }
 
     @Override
