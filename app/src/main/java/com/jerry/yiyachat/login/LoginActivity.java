@@ -1,17 +1,14 @@
 package com.jerry.yiyachat.login;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.jerry.yiyachat.MainActivity;
+import com.jerry.yiyachat.main.MainActivity;
 import com.jerry.yiyachat.R;
 import com.jerry.yiyachat.mvp.BaseMVPActivity;
-import com.jerry.yiyachat.mvp.BasePresenter;
-import com.jerry.yiyachat.mvp.BaseView;
 import com.jerry.yiyachat.register.RegisterActivity;
 
 import butterknife.BindView;
