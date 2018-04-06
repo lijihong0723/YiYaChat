@@ -8,4 +8,9 @@
     <string name="yaya_register">注册</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="roster_send_message">发消息</string>
+    <string name="roster_tv_address_label">地区</string>
+    <string name="roster_video_message">视频通话</string>
+    <string name="chat_send">发送</string>
+    <string name="roster_tv_signature">个性签名</string>
 </resources>

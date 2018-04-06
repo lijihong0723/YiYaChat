@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class RosterModel implements RosterContract.IRosterModel {
+class RosterModel implements RosterContract.IRosterModel {
 
     @Override
     public List<UserEntity> loadRoster() {
@@ -19,7 +19,8 @@ public class RosterModel implements RosterContract.IRosterModel {
 
         List<UserEntity> users = new ArrayList<>();
         for (RosterEntry entry : entries) {
-            users.add(new UserEntity(entry.getName()));
+
+            users.add(new UserEntity(entry.getName(), entry.getUser()));
         }
         return users;
     }

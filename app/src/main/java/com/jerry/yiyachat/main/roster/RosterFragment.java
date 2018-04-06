@@ -1,6 +1,7 @@
 package com.jerry.yiyachat.main.roster;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,11 +13,13 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jerry.recyclerviewutil.RecyclerItemClickListener;
 import com.jerry.recyclerviewutil.adapter.CommonAdapter;
 import com.jerry.recyclerviewutil.adapter.CommonViewHolder;
 import com.jerry.yiyachat.R;
 import com.jerry.yiyachat.entity.UserEntity;
 import com.jerry.yiyachat.mvp.BaseMVPFragment;
+import com.jerry.yiyachat.vcard.VCardActivity;
 
 import java.util.List;
 
@@ -36,6 +39,14 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_roster, container, false);
         ButterKnife.bind(this, view);
+        rvRoster.addOnItemTouchListener(new RecyclerItemClickListener(rvRoster) {
+            @Override
+            public void onItemClick(RecyclerView.ViewHolder vh) {
+                Intent intent = new Intent(getContext(), VCardActivity.class);
+                intent.putExtra("jid", users.get(vh.getAdapterPosition()).getJid());
+                getContext().startActivity(intent);
+            }
+        });
         return view;
     }
 
@@ -54,6 +65,7 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
 
     @Override
     public void onLoadSucceed(List<UserEntity> users) {
+        this.users = users;
         rvRoster.setLayoutManager(new LinearLayoutManager(getContext()));
         rvRoster.setAdapter(new CommonAdapter<UserEntity>(users, R.layout.roster_recycle_item) {
             @Override
