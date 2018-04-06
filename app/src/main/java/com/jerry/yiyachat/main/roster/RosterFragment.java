@@ -29,6 +29,8 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
     @BindView(R.id.rv_roster)
     RecyclerView rvRoster;
 
+    List<UserEntity> users;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,7 +42,9 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
     @Override
     public void onResume() {
         super.onResume();
-        present.loadRoster();
+        if (users == null) {
+            present.loadRoster();
+        }
     }
 
     @Override
