@@ -25,4 +25,6 @@ public class UserEntity {
     public void setJid(String jid) {
         this.jid = jid;
     }
+
+
 }

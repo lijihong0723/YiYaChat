@@ -1,5 +1,8 @@
 package com.jerry.yiyachat.vcard;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.jerry.yiyachat.entity.VCardEntity;
 import com.jerry.yiyachat.util.XMPPServer;
 
@@ -20,6 +23,13 @@ class VCardModel implements VCardContract.IVCardModel {
             vCardEntity.setAddress(
                     vCard.getAddressFieldHome("CTRY") + " " + vCard.getAddressFieldHome("LOCALITY"));
             vCardEntity.setSignature(vCard.getField("signature"));
+
+            byte[] avatarByteArray = vCard.getAvatar();
+            if (avatarByteArray != null) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(
+                        avatarByteArray, 0, avatarByteArray.length);
+                vCardEntity.setPhotoImage(bitmap);
+            }
 
             return "Succeed";
         } catch (SmackException.NoResponseException | XMPPException.XMPPErrorException | SmackException.NotConnectedException e) {

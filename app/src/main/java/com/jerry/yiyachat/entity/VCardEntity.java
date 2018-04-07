@@ -1,11 +1,14 @@
 package com.jerry.yiyachat.entity;
 
+import android.graphics.Bitmap;
+
 public class VCardEntity {
 
     private String jid;
     private String nickName;
     private String address;
     private String signature;
+    private Bitmap photoImage;
 
     public String getJid() {
         return jid;
@@ -37,5 +40,13 @@ public class VCardEntity {
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    public Bitmap getPhotoImage() {
+        return photoImage;
+    }
+
+    public void setPhotoImage(Bitmap photoImage) {
+        this.photoImage = photoImage;
     }
 }

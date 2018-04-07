@@ -1,10 +1,20 @@
 package com.jerry.yiyachat.util;
 
+import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Produce;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
+import com.jerry.yiyachat.entity.MessageEntity;
+
 import org.jivesoftware.smack.AbstractXMPPConnection;
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.SmackException;
+import org.jivesoftware.smack.StanzaListener;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.filter.MessageTypeFilter;
+import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.packet.Stanza;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
 
@@ -43,6 +53,8 @@ public class XMPPServer {
         SASLAuthentication.unBlacklistSASLMechanism("PLAIN");
 
         connection = new XMPPTCPConnection(config);
+        connection.addAsyncStanzaListener(
+                new ChatMessageStenzaListener(), MessageTypeFilter.CHAT);
     }
 
     private static void openConnection() {
@@ -56,4 +68,24 @@ public class XMPPServer {
             e.printStackTrace();
         }
     }
+}
+
+class ChatMessageStenzaListener implements StanzaListener
+{
+    @Override
+    public void processPacket(Stanza packet) throws SmackException.NotConnectedException {
+        Message message = (Message) packet;
+        if (message.getBody() != null && message.getBody() != "") {
+            RxBus.get().post(Constants.EventType.CHAT_MESSAGE_RECEIVED,
+                    new MessageEntity(message.getBody()));
+        }
+    }
+
+//    @Produce(
+//            thread = EventThread.IO,
+//            tags = { @Tag(Constants.EventType.CHAT_MESSAGE_RECEIVED) })
+//    private MessageEntity processMessage(Message message) {
+//        System.out.println(message.getBody());
+//        return new MessageEntity(message.getBody());
+//    }
 }
