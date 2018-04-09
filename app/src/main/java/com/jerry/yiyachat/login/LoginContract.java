@@ -16,7 +16,7 @@ interface LoginContract {
     }
 
     interface ILoginModel {
-        void login(String username, String password) throws Exception;
+        String login(String username, String password) throws Exception;
     }
 
     abstract class LoginPresenter extends BasePresenter<ILoginView> {

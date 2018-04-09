@@ -33,7 +33,11 @@ public class RegisterPresenter extends RegisterContract.IRegisterPresenter {
 
                     @Override
                     public void onNext(String value) {
-
+                        if (value.equals("Succeed")) {
+                            view.onRegisterSucceed();
+                        } else {
+                            view.onRegisterFailed(value);
+                        }
                     }
 
                     @Override

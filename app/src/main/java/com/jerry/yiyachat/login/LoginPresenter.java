@@ -1,5 +1,7 @@
 package com.jerry.yiyachat.login;
 
+import com.jerry.yiyachat.util.XMPPServer;
+
 import java.util.concurrent.Callable;
 
 import io.reactivex.Observable;
@@ -21,40 +23,34 @@ class LoginPresenter extends LoginContract.LoginPresenter {
         Observable.fromCallable(new Callable<String>() {
             @Override
             public String call() throws Exception {
-                try {
-                    model.login(username, password);
-                    return "Succeed";
-                } catch (Exception e) {
-                    return e.getMessage();
-                }
+                return model.login(username, password);
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            }
+                    }
 
-            @Override
-            public void onNext(String value) {
-                if (!value.equals("Succeed")) {
-                    view.showError(value);
-                } else {
-                    view.loginSucceed();
-                }
-            }
+                    @Override
+                    public void onNext(String value) {
+                        if (!value.equals("Succeed")) {
+                            view.showError(value);
+                        } else {
+                            view.loginSucceed();
+                        }
+                    }
 
-            @Override
-            public void onError(Throwable e) {
+                    @Override
+                    public void onError(Throwable e) {
 
-            }
+                    }
 
-            @Override
-            public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-            }
-        });
-
+                    }
+                });
     }
 }

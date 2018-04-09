@@ -1,5 +1,6 @@
 package com.jerry.yiyachat.main;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
@@ -8,10 +9,13 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.jerry.yiyachat.R;
 import com.jerry.yiyachat.main.message.MessageFragment;
 import com.jerry.yiyachat.main.roster.RosterFragment;
+import com.jerry.yiyachat.search.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +24,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
-
 
     @BindView(R.id.view_pager_main)
     ViewPager viewPageMain;
@@ -34,6 +37,26 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         viewPageMain.setAdapter(
                 new MainFragmentViewPagerAdapter(getSupportFragmentManager()));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.main_menu_add_friend:
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+        return true;
     }
 }
 

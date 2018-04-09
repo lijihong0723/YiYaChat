@@ -5,7 +5,8 @@ import com.jerry.yiyachat.mvp.BasePresenter;
 public interface RegisterContract {
 
     interface IRegisterView {
-
+        void onRegisterSucceed();
+        void onRegisterFailed(String errorMessage);
     }
 
     interface IRegisterModel {

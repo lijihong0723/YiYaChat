@@ -6,7 +6,13 @@ public class LoginModel implements LoginContract.ILoginModel {
 
 
     @Override
-    public void login(String username, String password) throws Exception {
-        XMPPServer.getConnection().login(username, password);
+    public String login(String username, String password) throws Exception {
+        try {
+            XMPPServer.getConnection().login(username, password);
+            return "Succeed";
+        } catch (Exception e) {
+            XMPPServer.getConnection().disconnect();
+            return e.getMessage();
+        }
     }
 }

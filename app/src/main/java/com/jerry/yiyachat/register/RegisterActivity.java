@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.jerry.yiyachat.R;
 import com.jerry.yiyachat.mvp.BaseMVPActivity;
@@ -41,9 +42,19 @@ public class RegisterActivity
         switch (v.getId()) {
             case R.id.btn_register:
                 String username = etYiyaCode.getText().toString();
-                String password = etYiyaCode.getText().toString();
+                String password = etPassword.getText().toString();
                 presenter.register(username, password);
                 break;
         }
+    }
+
+    @Override
+    public void onRegisterSucceed() {
+        Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRegisterFailed(String errorMessage) {
+        Toast.makeText(this, "注册失败:" + errorMessage, Toast.LENGTH_SHORT).show();
     }
 }

@@ -29,7 +29,8 @@
         </activity>
         <activity android:name=".register.RegisterActivity" />
         <activity android:name=".vcard.VCardActivity" />
-        <activity android:name=".chat.ChatActivity"></activity>
+        <activity android:name=".chat.ChatActivity" />
+        <activity android:name=".search.SearchActivity" />
     </application>
 
 </manifest>

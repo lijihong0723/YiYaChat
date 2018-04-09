@@ -13,4 +13,8 @@
     <string name="roster_video_message">视频通话</string>
     <string name="chat_send">发送</string>
     <string name="roster_tv_signature">个性签名</string>
+    <string name="search_user_not_exist">该用户不存在</string>
+    <string name="search_search">搜索：</string>
+    <string name="search_cancel">取消</string>
+    <string name="main_menu_add_friend">添加朋友</string>
 </resources>
