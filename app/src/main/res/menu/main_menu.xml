@@ -6,4 +6,8 @@
         android:title="@string/main_menu_add_friend"
         app:showAsAction="never" />
 
+    <item android:id="@+id/main_menu_launch_muc"
+        android:title="@string/main_menu_launch_muc"
+        app:showAsAction="never" />
+
 </menu>

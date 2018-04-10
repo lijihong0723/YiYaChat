@@ -43,7 +43,7 @@ public class XMPPServer {
         XMPPTCPConnectionConfiguration config
                 = XMPPTCPConnectionConfiguration.builder()
                 .setHost(HOST_IP_ADDRESS)
-                .setServiceName(HOST_IP_ADDRESS)
+                .setServiceName("jerry-aliyun-01")
                 .setPort(5222)
                 .setSecurityMode(ConnectionConfiguration.SecurityMode.disabled)
                 .setDebuggerEnabled(true)
@@ -75,7 +75,7 @@ class ChatMessageStenzaListener implements StanzaListener
     @Override
     public void processPacket(Stanza packet) throws SmackException.NotConnectedException {
         Message message = (Message) packet;
-        if (message.getBody() != null && message.getBody() != "") {
+        if (message.getBody() != null && !message.getBody().equals("")) {
             RxBus.get().post(Constants.EventType.CHAT_MESSAGE_RECEIVED,
                     new MessageEntity(message.getBody()));
         }

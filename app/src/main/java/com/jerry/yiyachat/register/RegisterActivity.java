@@ -1,5 +1,6 @@
 package com.jerry.yiyachat.register;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.jerry.yiyachat.R;
+import com.jerry.yiyachat.main.MainActivity;
 import com.jerry.yiyachat.mvp.BaseMVPActivity;
 
 import butterknife.BindView;
@@ -50,7 +52,9 @@ public class RegisterActivity
 
     @Override
     public void onRegisterSucceed() {
-        Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "恭喜您，注册成功", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     @Override

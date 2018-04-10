@@ -11,7 +11,7 @@ public abstract  class BaseMVPActivity<V, P extends BasePresenter<V>> extends Ap
     protected P presenter;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = createPresent();
         RxBus.get().register(this);

@@ -31,6 +31,7 @@
         <activity android:name=".vcard.VCardActivity" />
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".search.SearchActivity" />
+        <activity android:name=".muc.launch.LaunchMUCActivity"></activity>
     </application>
 
 </manifest>

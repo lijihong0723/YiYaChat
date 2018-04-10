@@ -35,6 +35,8 @@ public class RegisterPresenter extends RegisterContract.IRegisterPresenter {
                     public void onNext(String value) {
                         if (value.equals("Succeed")) {
                             view.onRegisterSucceed();
+                        } else if (value.contains("conflict - cancel")) {
+                            view.onRegisterFailed("该账号已经被注册啦！");
                         } else {
                             view.onRegisterFailed(value);
                         }

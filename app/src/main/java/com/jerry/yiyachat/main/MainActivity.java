@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.jerry.yiyachat.R;
 import com.jerry.yiyachat.main.message.MessageFragment;
 import com.jerry.yiyachat.main.roster.RosterFragment;
+import com.jerry.yiyachat.muc.launch.LaunchMUCActivity;
 import com.jerry.yiyachat.search.SearchActivity;
 
 import java.util.ArrayList;
@@ -48,12 +49,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.main_menu_add_friend:
+            case R.id.main_menu_add_friend: {
                 Intent intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
                 break;
-            default:
+            }
+            case R.id.main_menu_launch_muc: {
+                Intent intent = new Intent(this, LaunchMUCActivity.class);
+                startActivity(intent);
+                break;
+            }
+            default: {
                 return super.onOptionsItemSelected(item);
+            }
         }
 
         return true;
