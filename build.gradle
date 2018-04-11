@@ -18,6 +18,9 @@ allprojects {
         maven {
             url 'http://47.104.194.78:8081/repository/maven-releases/'
         }
+        maven {
+            url 'https://jitpack.io'
+        }
     }
 }
 

@@ -18,4 +18,8 @@
     <string name="search_cancel">取消</string>
     <string name="main_menu_add_friend">添加朋友</string>
     <string name="main_menu_launch_muc">发起群聊</string>
+    <string name="main_tab_message">消息</string>
+    <string name="main_tab_roster">通讯录</string>
+    <string name="main_tab_discovery">发现</string>
+    <string name="main_tab_self">我</string>
 </resources>

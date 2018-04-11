@@ -12,9 +12,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.chaychan.library.BottomBarLayout;
 import com.jerry.yiyachat.R;
+import com.jerry.yiyachat.main.discovery.DiscoveryFragment;
 import com.jerry.yiyachat.main.message.MessageFragment;
 import com.jerry.yiyachat.main.roster.RosterFragment;
+import com.jerry.yiyachat.main.self.SelfFragment;
 import com.jerry.yiyachat.muc.launch.LaunchMUCActivity;
 import com.jerry.yiyachat.search.SearchActivity;
 
@@ -29,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.view_pager_main)
     ViewPager viewPageMain;
 
+    @BindView(R.id.main_ll_tab)
+    BottomBarLayout bottomBarLayout;
+
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         viewPageMain.setAdapter(
                 new MainFragmentViewPagerAdapter(getSupportFragmentManager()));
+        bottomBarLayout.setViewPager(viewPageMain);
     }
 
     @Override
@@ -77,6 +84,8 @@ class MainFragmentViewPagerAdapter extends FragmentStatePagerAdapter {
         fragments = new ArrayList<>();
         fragments.add(new MessageFragment());
         fragments.add(new RosterFragment());
+        fragments.add(new DiscoveryFragment());
+        fragments.add(new SelfFragment());
     }
 
     @Override

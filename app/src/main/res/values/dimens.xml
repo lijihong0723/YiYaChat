@@ -2,4 +2,5 @@
 <resources>
     <dimen name="roster_photo_width">100dp</dimen>
     <dimen name="roster_photo_height">100dp</dimen>
+    <dimen name="main_tab_text_size">12sp</dimen>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,12 +11,53 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <View android:background="@color/colorPrimary"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="1dp" />
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary" />
 
-    <LinearLayout
+    <com.chaychan.library.BottomBarLayout
+        android:id="@+id/main_ll_tab"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="45dp">
+
+        <com.chaychan.library.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:iconNormal="@mipmap/main_tab_message_normal"
+            app:iconSelected="@mipmap/main_tab_message_selected"
+            app:itemText="@string/main_tab_message"
+            app:itemTextSize="@dimen/main_tab_text_size" />
+
+        <com.chaychan.library.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:iconNormal="@mipmap/main_tab_roster_normal"
+            app:iconSelected="@mipmap/main_tab_roster_selected"
+            app:itemText="@string/main_tab_roster"
+            app:itemTextSize="@dimen/main_tab_text_size" />
+
+        <com.chaychan.library.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:iconNormal="@mipmap/main_tab_discovery_normal"
+            app:iconSelected="@mipmap/main_tab_discovery_selected"
+            app:itemText="@string/main_tab_discovery"
+            app:itemTextSize="@dimen/main_tab_text_size" />
+
+        <com.chaychan.library.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:iconNormal="@mipmap/main_tab_self_normal"
+            app:iconSelected="@mipmap/main_tab_self_selected"
+            app:itemText="@string/main_tab_self"
+            app:itemTextSize="@dimen/main_tab_text_size" />
+
+
+    </com.chaychan.library.BottomBarLayout>
 
 </LinearLayout>
