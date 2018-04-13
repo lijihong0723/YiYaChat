@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +73,9 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
             protected void bindViewHolder(CommonViewHolder holder, UserEntity item) {
                 TextView tvUserName = holder.getView(R.id.tv_user_name);
                 tvUserName.setText(item.getUserName());
+
+                ImageView ivPhoto = holder.getView(R.id.roster_item_iv_photo);
+                ivPhoto.setImageBitmap(item.getvCardEntity().getPhotoImage());
             }
         });
     }

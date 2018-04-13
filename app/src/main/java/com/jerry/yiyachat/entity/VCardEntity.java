@@ -1,6 +1,9 @@
 package com.jerry.yiyachat.entity;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import org.jivesoftware.smackx.vcardtemp.packet.VCard;
 
 public class VCardEntity {
 
@@ -9,6 +12,21 @@ public class VCardEntity {
     private String address;
     private String signature;
     private Bitmap photoImage;
+
+    public VCardEntity() {
+    }
+
+    public VCardEntity(VCard vCard) {
+        jid = vCard.getJabberId();
+        nickName = vCard.getNickName();
+        address = vCard.getAddressFieldHome(
+                vCard.getAddressFieldHome("CTRY") + " " + vCard.getAddressFieldHome("LOCALITY"));
+        byte[] avatarByteArray = vCard.getAvatar();
+        if (avatarByteArray != null) {
+            photoImage = BitmapFactory.decodeByteArray(
+                    avatarByteArray, 0, avatarByteArray.length);
+        }
+    }
 
     public String getJid() {
         return jid;

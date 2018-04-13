@@ -4,6 +4,7 @@ public class UserEntity {
 
     private String userName;
     private String jid;
+    private VCardEntity vCardEntity;
 
     public UserEntity(String userName, String jid) {
         this.userName = userName;
@@ -26,5 +27,11 @@ public class UserEntity {
         this.jid = jid;
     }
 
+    public VCardEntity getvCardEntity() {
+        return vCardEntity;
+    }
 
+    public void setvCardEntity(VCardEntity vCardEntity) {
+        this.vCardEntity = vCardEntity;
+    }
 }
