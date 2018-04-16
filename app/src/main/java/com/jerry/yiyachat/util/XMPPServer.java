@@ -83,8 +83,9 @@ class ChatMessageStenzaListener implements StanzaListener
         if (message.getBody() != null && !message.getBody().equals("")) {
             MessageEntity messageEntity = new MessageEntity(message.getBody());
             UserEntity userEntity = DataSupport.where(
-                    "jid = ?", message.getFrom()).findFirst(UserEntity.class);
+                    "jid = ?", message.getFrom().substring(0, message.getFrom().indexOf('/'))).findFirst(UserEntity.class);
             messageEntity.setUserEntity(userEntity);
+            messageEntity.save();
 
             RxBus.get().post(Constants.EventType.CHAT_MESSAGE_RECEIVED, messageEntity);
         }

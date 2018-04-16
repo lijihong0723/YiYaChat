@@ -23,6 +23,8 @@ import com.jerry.yiyachat.mvp.BaseMVPFragment;
 import com.jerry.yiyachat.util.Constants;
 import com.jerry.yiyachat.vcard.VCardActivity;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 
