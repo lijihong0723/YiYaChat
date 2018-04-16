@@ -5,15 +5,17 @@ import com.jerry.yiyachat.mvp.BasePresenter;
 interface SearchContract {
 
     interface ISearchView {
-        void onSearchSucceed();
+        void onSearchSucceed(String jid);
         void onSearchFailed();
     }
 
     interface ISearchModel {
-        boolean search(String searchString);
+        String search(String searchString);
+        boolean isInRoster(String jid);
     }
 
     abstract class ISearchPresenter extends BasePresenter<ISearchView> {
         abstract void search(String searchString);
+        abstract boolean isInRoster(String jid);
     }
 }

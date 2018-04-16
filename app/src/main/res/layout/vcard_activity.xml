@@ -78,4 +78,10 @@
         android:layout_height="wrap_content"
         android:text="@string/roster_video_message" />
 
+    <Button
+        android:id="@+id/vcard_btn_add_to_roster"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/vcard_add_to_roster"/>
+
 </LinearLayout>

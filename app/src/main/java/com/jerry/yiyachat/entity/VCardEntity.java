@@ -17,7 +17,7 @@ public class VCardEntity {
     }
 
     public VCardEntity(VCard vCard) {
-        jid = vCard.getJabberId();
+        jid = vCard.getFrom();
         nickName = vCard.getNickName();
         address = vCard.getAddressFieldHome(
                 vCard.getAddressFieldHome("CTRY") + " " + vCard.getAddressFieldHome("LOCALITY"));

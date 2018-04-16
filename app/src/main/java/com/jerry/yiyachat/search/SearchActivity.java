@@ -61,8 +61,18 @@ public class SearchActivity extends BaseMVPActivity<SearchContract.ISearchView, 
     }
 
     @Override
-    public void onSearchSucceed() {
-        Intent intent = new Intent(this, VCardActivity.class);
+    public void onSearchSucceed(String jid) {
+        Intent intent = null;
+        intent = new Intent(this, VCardActivity.class);
+        intent.putExtra("jid", jid);
+
+        String bareJid = jid.substring(0, jid.indexOf('@'));
+        if (presenter.isInRoster(bareJid)) {
+            intent.putExtra("type", "exist_in_roster");
+        } else {
+            intent.putExtra("type", "new_friend");
+        }
+
         startActivity(intent);
     }
 

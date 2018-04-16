@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hwangjr.rxbus.RxBus;
+
 public abstract class BaseMVPFragment<V, P extends BasePresenter<V>> extends Fragment {
 
     protected P present;
@@ -15,6 +17,7 @@ public abstract class BaseMVPFragment<V, P extends BasePresenter<V>> extends Fra
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         present = createPresenter();
+        RxBus.get().register(this);
     }
 
     @Override
@@ -27,6 +30,7 @@ public abstract class BaseMVPFragment<V, P extends BasePresenter<V>> extends Fra
     public void onDestroy() {
         super.onDestroy();
         present.detach();
+        RxBus.get().unregister(this);
     }
 
     protected abstract P createPresenter();

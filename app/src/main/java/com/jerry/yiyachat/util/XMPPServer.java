@@ -5,6 +5,7 @@ import com.hwangjr.rxbus.annotation.Produce;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jerry.yiyachat.entity.MessageEntity;
+import com.jerry.yiyachat.entity.VCardEntity;
 
 import org.jivesoftware.smack.AbstractXMPPConnection;
 import org.jivesoftware.smack.ConnectionConfiguration;
@@ -17,6 +18,8 @@ import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Stanza;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
+import org.jivesoftware.smackx.vcardtemp.VCardManager;
+import org.jivesoftware.smackx.vcardtemp.packet.VCard;
 
 import java.io.IOException;
 
@@ -76,16 +79,19 @@ class ChatMessageStenzaListener implements StanzaListener
     public void processPacket(Stanza packet) throws SmackException.NotConnectedException {
         Message message = (Message) packet;
         if (message.getBody() != null && !message.getBody().equals("")) {
-            RxBus.get().post(Constants.EventType.CHAT_MESSAGE_RECEIVED,
-                    new MessageEntity(message.getBody()));
+            MessageEntity messageEntity = new MessageEntity(message.getBody());
+
+            VCardManager vCardManager = VCardManager.getInstanceFor(XMPPServer.getConnection());
+            try {
+                VCard vCard = vCardManager.loadVCard(message.getFrom().substring(0, message.getFrom().indexOf('/')));
+                messageEntity.setvCardEntity(new VCardEntity(vCard));
+            } catch (SmackException.NoResponseException e) {
+                e.printStackTrace();
+            } catch (XMPPException.XMPPErrorException e) {
+                e.printStackTrace();
+            }
+
+            RxBus.get().post(Constants.EventType.CHAT_MESSAGE_RECEIVED, messageEntity);
         }
     }
-
-//    @Produce(
-//            thread = EventThread.IO,
-//            tags = { @Tag(Constants.EventType.CHAT_MESSAGE_RECEIVED) })
-//    private MessageEntity processMessage(Message message) {
-//        System.out.println(message.getBody());
-//        return new MessageEntity(message.getBody());
-//    }
 }

@@ -12,10 +12,12 @@ interface VCardContract {
 
     interface IVCardModel {
         String loadVCard(String jid, VCardEntity vCardEntity);
+        void addToRoster(VCardEntity vCardEntity);
     }
 
     abstract class IVCardPresenter extends BasePresenter<IVCardView> {
         public abstract void loadVCard(String jid);
+        public abstract void addToRoster(VCardEntity vCardEntity);
     }
 
 }

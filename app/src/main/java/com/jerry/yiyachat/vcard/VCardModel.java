@@ -8,6 +8,7 @@ import com.jerry.yiyachat.util.XMPPServer;
 
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.roster.Roster;
 import org.jivesoftware.smackx.vcardtemp.VCardManager;
 import org.jivesoftware.smackx.vcardtemp.packet.VCard;
 
@@ -35,6 +36,22 @@ class VCardModel implements VCardContract.IVCardModel {
         } catch (SmackException.NoResponseException | XMPPException.XMPPErrorException | SmackException.NotConnectedException e) {
             e.printStackTrace();
             return e.getMessage();
+        }
+    }
+
+    @Override
+    public void addToRoster(VCardEntity vCardEntity) {
+        Roster roster = Roster.getInstanceFor(XMPPServer.getConnection());
+        try {
+            roster.createEntry(vCardEntity.getJid(), vCardEntity.getNickName(), null);
+        } catch (SmackException.NotLoggedInException e) {
+            e.printStackTrace();
+        } catch (SmackException.NoResponseException e) {
+            e.printStackTrace();
+        } catch (XMPPException.XMPPErrorException e) {
+            e.printStackTrace();
+        } catch (SmackException.NotConnectedException e) {
+            e.printStackTrace();
         }
     }
 }

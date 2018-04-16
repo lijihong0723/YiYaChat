@@ -20,4 +20,9 @@ class VCardPresenter extends VCardContract.IVCardPresenter {
             view.onLoadVCardFailed(result);
         }
     }
+
+    @Override
+    public void addToRoster(VCardEntity vCardEntity) {
+
+    }
 }

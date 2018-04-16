@@ -22,4 +22,5 @@
     <string name="main_tab_roster">通讯录</string>
     <string name="main_tab_discovery">发现</string>
     <string name="main_tab_self">我</string>
+    <string name="vcard_add_to_roster">添加到通讯录</string>
 </resources>

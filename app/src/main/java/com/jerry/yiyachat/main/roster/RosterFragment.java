@@ -3,13 +3,11 @@ package com.jerry.yiyachat.main.roster;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +43,7 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
             public void onItemClick(RecyclerView.ViewHolder vh) {
                 Intent intent = new Intent(getContext(), VCardActivity.class);
                 intent.putExtra("jid", users.get(vh.getAdapterPosition()).getJid());
+                intent.putExtra("type", "exist_in_roster");
                 getContext().startActivity(intent);
             }
         });

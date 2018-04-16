@@ -10,10 +10,16 @@ public class SearchPresenter extends SearchContract.ISearchPresenter {
 
     @Override
     void search(String searchString) {
-        if (model.search(searchString)) {
-            view.onSearchSucceed();
+        String jid = model.search(searchString);
+        if (jid != "") {
+            view.onSearchSucceed(jid);
         } else {
             view.onSearchFailed();
         }
+    }
+
+    @Override
+    boolean isInRoster(String jid) {
+        return model.isInRoster(jid);
     }
 }
