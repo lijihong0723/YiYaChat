@@ -1,9 +1,11 @@
 package com.jerry.yiyachat.entity;
 
-public class MessageEntity {
+import org.litepal.crud.DataSupport;
+
+public class MessageEntity extends DataSupport {
 
     private String messageInfo;
-    private VCardEntity vCardEntity;
+    private UserEntity userEntity;
 
     public MessageEntity(String messageInfo) {
         this.messageInfo = messageInfo;
@@ -17,11 +19,11 @@ public class MessageEntity {
         this.messageInfo = messageInfo;
     }
 
-    public VCardEntity getvCardEntity() {
-        return vCardEntity;
+    public UserEntity getUserEntity() {
+        return userEntity;
     }
 
-    public void setvCardEntity(VCardEntity vCardEntity) {
-        this.vCardEntity = vCardEntity;
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }

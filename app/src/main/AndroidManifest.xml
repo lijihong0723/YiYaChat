@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -32,7 +33,7 @@
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".search.SearchActivity" />
         <activity android:name=".muc.launch.LaunchMUCActivity" />
-        <activity android:name=".newfriends.NewFriendsActivity"></activity>
+        <activity android:name=".newfriends.NewFriendsActivity" />
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.jerry.yiyachat.main.roster;
 
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -74,7 +75,7 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
                 tvUserName.setText(item.getUserName());
 
                 ImageView ivPhoto = holder.getView(R.id.roster_item_iv_photo);
-                ivPhoto.setImageBitmap(item.getvCardEntity().getPhotoImage());
+                ivPhoto.setImageBitmap(item.getPhotoBitmap());
             }
         });
     }

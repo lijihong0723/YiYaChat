@@ -48,10 +48,10 @@ public class MessageFragment extends BaseMVPFragment<MessageContract.IMessageVie
             @Override
             protected void bindViewHolder(CommonViewHolder holder, MessageEntity item) {
                 ImageView ivPhoto = holder.getView(R.id.message_item_iv_photo);
-                ivPhoto.setImageBitmap(item.getvCardEntity().getPhotoImage());
+                ivPhoto.setImageBitmap(item.getUserEntity().getPhotoBitmap());
 
                 TextView tvNickName = holder.getView(R.id.message_item_tv_nick_name);
-                tvNickName.setText(item.getvCardEntity().getNickName());
+                tvNickName.setText(item.getUserEntity().getUserName());
 
                 TextView tvLastestMessage = holder.getView(R.id.message_item_tv_latest_message);
                 tvLastestMessage.setText(item.getMessageInfo());
@@ -63,7 +63,7 @@ public class MessageFragment extends BaseMVPFragment<MessageContract.IMessageVie
             public void onItemClick(RecyclerView.ViewHolder vh) {
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 MessageEntity messageEntity = messageEntities.get(vh.getAdapterPosition());
-                intent.putExtra("jid", messageEntity.getvCardEntity().getJid());
+                intent.putExtra("jid", messageEntity.getUserEntity().getJid());
                 getContext().startActivity(intent);
             }
         });

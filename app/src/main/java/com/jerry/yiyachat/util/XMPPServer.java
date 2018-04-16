@@ -5,6 +5,7 @@ import com.hwangjr.rxbus.annotation.Produce;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.jerry.yiyachat.entity.MessageEntity;
+import com.jerry.yiyachat.entity.UserEntity;
 import com.jerry.yiyachat.entity.VCardEntity;
 
 import org.jivesoftware.smack.AbstractXMPPConnection;
@@ -20,6 +21,7 @@ import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import org.jivesoftware.smack.tcp.XMPPTCPConnectionConfiguration;
 import org.jivesoftware.smackx.vcardtemp.VCardManager;
 import org.jivesoftware.smackx.vcardtemp.packet.VCard;
+import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
 
@@ -80,16 +82,9 @@ class ChatMessageStenzaListener implements StanzaListener
         Message message = (Message) packet;
         if (message.getBody() != null && !message.getBody().equals("")) {
             MessageEntity messageEntity = new MessageEntity(message.getBody());
-
-            VCardManager vCardManager = VCardManager.getInstanceFor(XMPPServer.getConnection());
-            try {
-                VCard vCard = vCardManager.loadVCard(message.getFrom().substring(0, message.getFrom().indexOf('/')));
-                messageEntity.setvCardEntity(new VCardEntity(vCard));
-            } catch (SmackException.NoResponseException e) {
-                e.printStackTrace();
-            } catch (XMPPException.XMPPErrorException e) {
-                e.printStackTrace();
-            }
+            UserEntity userEntity = DataSupport.where(
+                    "jid = ?", message.getFrom()).findFirst(UserEntity.class);
+            messageEntity.setUserEntity(userEntity);
 
             RxBus.get().post(Constants.EventType.CHAT_MESSAGE_RECEIVED, messageEntity);
         }
