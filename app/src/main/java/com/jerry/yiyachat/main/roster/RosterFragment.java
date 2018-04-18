@@ -32,23 +32,32 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
     @BindView(R.id.rv_roster)
     RecyclerView rvRoster;
 
-    List<UserEntity> users;
+    private View rootView;
+    private List<UserEntity> users;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_roster, container, false);
-        ButterKnife.bind(this, view);
-        rvRoster.addOnItemTouchListener(new RecyclerItemClickListener(rvRoster) {
-            @Override
-            public void onItemClick(RecyclerView.ViewHolder vh) {
-                Intent intent = new Intent(getContext(), VCardActivity.class);
-                intent.putExtra("jid", users.get(vh.getAdapterPosition()).getJid());
-                intent.putExtra("type", "exist_in_roster");
-                getContext().startActivity(intent);
+        if (rootView == null) {
+            rootView = inflater.inflate(R.layout.fragment_roster, container, false);
+            ButterKnife.bind(this, rootView);
+            rvRoster.addOnItemTouchListener(new RecyclerItemClickListener(rvRoster) {
+                @Override
+                public void onItemClick(RecyclerView.ViewHolder vh) {
+                    Intent intent = new Intent(getContext(), VCardActivity.class);
+                    intent.putExtra("jid", users.get(vh.getAdapterPosition()).getJid());
+                    intent.putExtra("type", "exist_in_roster");
+                    getContext().startActivity(intent);
+                }
+            });
+        } else {
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            if (parent != null) {
+                parent.removeView(rootView);
             }
-        });
-        return view;
+        }
+
+        return rootView;
     }
 
     @Override
@@ -84,4 +93,6 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
     public void onLoadFailed(String errorInfo) {
         Toast.makeText(getContext(), errorInfo, Toast.LENGTH_SHORT).show();
     }
+
+
 }
