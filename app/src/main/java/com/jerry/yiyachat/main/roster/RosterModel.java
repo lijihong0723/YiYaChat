@@ -13,12 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static org.jivesoftware.smack.roster.packet.RosterPacket.ItemType.both;
+
 class RosterModel implements RosterContract.IRosterModel {
 
     @Override
     public List<UserEntity> loadRoster() {
         List<UserEntity> users = loadFromDB();
-        if (users == null) {
+        if (users == null || users.isEmpty()) {
             users = loadFromServer();
         }
 
@@ -26,7 +28,8 @@ class RosterModel implements RosterContract.IRosterModel {
     }
 
     private List<UserEntity> loadFromDB() {
-        return DataSupport.findAll(UserEntity.class);
+        String type = Integer.toString(UserEntity.TYPE_ROSTER);
+        return DataSupport.where("type=?", type).find(UserEntity.class);
     }
 
     private List<UserEntity> loadFromServer() {
@@ -36,7 +39,11 @@ class RosterModel implements RosterContract.IRosterModel {
         Set<RosterEntry> entries = roster.getEntries();
         List<UserEntity> users = new ArrayList<>();
         for (RosterEntry entry : entries) {
-            users.add(new UserEntity(entry.getName(), entry.getUser()));
+            if (entry.getType() == both) {
+                UserEntity userEntity = new UserEntity(entry.getName(), entry.getUser());
+                userEntity.setType(UserEntity.TYPE_ROSTER);
+                users.add(userEntity);
+            }
         }
 
         // 加载每个人的详细信息

@@ -3,12 +3,25 @@ package com.jerry.yiyachat.entity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import org.jivesoftware.smackx.vcardtemp.packet.VCard;
 import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
+/**
+ * 用户实体，包括通信录好友（Roster）、好友请求者（Subscriber）。
+ */
 public class UserEntity extends DataSupport {
+
+    // 通过群组得到的用户信息
+    public static final int TYPE_GROUP          = 0;
+    // 向我发出请求的用户信息
+    public static final int TYPE_SUBSCRIBE_FROM = 1;
+    // 由我发出请求的用户信息
+    public static final int TYPE_SUBSCRIBE_TO   = 2;
+    // 已成为好友的用户信息
+    public static final int TYPE_ROSTER         = 3;
 
     @Column(unique = true)
     private String jid;
@@ -20,6 +33,14 @@ public class UserEntity extends DataSupport {
 
     @Column(ignore = true)
     private Bitmap photoBitmap;
+
+    private int type;
+
+    public UserEntity(VCard vCard) {
+        this.setJid(vCard.getJabberId());
+        this.userName = vCard.getNickName();
+        this.photo = vCard.getAvatar();
+    }
 
     public UserEntity(String userName, String jid) {
         this.userName = userName;
@@ -55,7 +76,10 @@ public class UserEntity extends DataSupport {
     }
 
     public void setPhoto(byte[] photo) {
-        this.photo = photo;
+        if (photo != null) {
+            this.photo = photo;
+            photoBitmap = BitmapFactory.decodeByteArray(photo, 0, photo.length);
+        }
     }
 
     public List<MessageEntity> getMessages() {
@@ -67,9 +91,14 @@ public class UserEntity extends DataSupport {
     }
 
     public Bitmap getPhotoBitmap() {
-        if (photoBitmap == null) {
-            photoBitmap = BitmapFactory.decodeByteArray(photo, 0, photo.length);
-        }
         return photoBitmap;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

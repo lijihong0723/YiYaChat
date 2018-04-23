@@ -1,12 +1,10 @@
 package com.jerry.yiyachat.util;
 
+import android.annotation.SuppressLint;
+
 import com.hwangjr.rxbus.RxBus;
-import com.hwangjr.rxbus.annotation.Produce;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.hwangjr.rxbus.thread.EventThread;
 import com.jerry.yiyachat.entity.MessageEntity;
 import com.jerry.yiyachat.entity.UserEntity;
-import com.jerry.yiyachat.entity.VCardEntity;
 
 import org.jivesoftware.smack.AbstractXMPPConnection;
 import org.jivesoftware.smack.ConnectionConfiguration;
@@ -15,6 +13,7 @@ import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.StanzaListener;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.filter.MessageTypeFilter;
+import org.jivesoftware.smack.filter.PresenceTypeFilter;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Stanza;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
@@ -60,6 +59,8 @@ public class XMPPServer {
         connection = new XMPPTCPConnection(config);
         connection.addAsyncStanzaListener(
                 new ChatMessageStenzaListener(), MessageTypeFilter.CHAT);
+        connection.addAsyncStanzaListener(
+                new SubscribePresenceStanzaListener(), PresenceTypeFilter.SUBSCRIBE);
     }
 
     private static void openConnection() {
@@ -75,8 +76,10 @@ public class XMPPServer {
     }
 }
 
-class ChatMessageStenzaListener implements StanzaListener
-{
+/**
+ * 此监听器响应好友聊天数据包
+ */
+class ChatMessageStenzaListener implements StanzaListener {
     @Override
     public void processPacket(Stanza packet) throws SmackException.NotConnectedException {
         Message message = (Message) packet;
@@ -88,6 +91,26 @@ class ChatMessageStenzaListener implements StanzaListener
             messageEntity.save();
 
             RxBus.get().post(Constants.EventType.CHAT_MESSAGE_RECEIVED, messageEntity);
+        }
+    }
+}
+
+/**
+ * 此监听器响应好友请求包
+ */
+class SubscribePresenceStanzaListener implements StanzaListener {
+
+    @SuppressLint("LongLogTag")
+    @Override
+    public void processPacket(Stanza packet) throws SmackException.NotConnectedException {
+        VCardManager vCardManager = VCardManager.getInstanceFor(XMPPServer.getConnection());
+        try {
+            VCard vCard = vCardManager.loadVCard(packet.getFrom());
+            UserEntity userEntity = new UserEntity(vCard);
+            userEntity.setType(UserEntity.TYPE_SUBSCRIBE_FROM);
+            userEntity.save();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -23,6 +23,6 @@ class VCardPresenter extends VCardContract.IVCardPresenter {
 
     @Override
     public void addToRoster(VCardEntity vCardEntity) {
-
+        model.addToRoster(vCardEntity);
     }
 }

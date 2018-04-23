@@ -19,15 +19,17 @@ import com.jerry.recyclerviewutil.adapter.CommonViewHolder;
 import com.jerry.yiyachat.R;
 import com.jerry.yiyachat.entity.UserEntity;
 import com.jerry.yiyachat.mvp.BaseMVPFragment;
+import com.jerry.yiyachat.subscriber.SubscriberActivity;
 import com.jerry.yiyachat.vcard.VCardActivity;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, RosterPresenter>
-        implements RosterContract.IRosterView {
+        implements RosterContract.IRosterView, View.OnClickListener {
 
     @BindView(R.id.rv_roster)
     RecyclerView rvRoster;
@@ -38,6 +40,7 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // 以下逻辑是为了防止重复创建View
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_roster, container, false);
             ButterKnife.bind(this, rootView);
@@ -94,5 +97,16 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
         Toast.makeText(getContext(), errorInfo, Toast.LENGTH_SHORT).show();
     }
 
-
+    @OnClick({R.id.roster_ll_subscribers})
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.roster_ll_subscribers:
+            {
+                Intent intent = new Intent(getActivity(), SubscriberActivity.class);
+                startActivity(intent);
+                break;
+            }
+        }
+    }
 }

@@ -100,7 +100,7 @@ public class VCardActivity extends BaseMVPActivity<VCardContract.IVCardView, VCa
                 break;
             }
             case R.id.vcard_btn_add_to_roster: {
-
+                presenter.addToRoster(vCardEntity);
                 break;
             }
             case R.id.vcard_btn_video_message:

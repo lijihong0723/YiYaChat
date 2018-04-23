@@ -33,7 +33,7 @@
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".search.SearchActivity" />
         <activity android:name=".muc.launch.LaunchMUCActivity" />
-        <activity android:name=".newfriends.NewFriendsActivity" />
+        <activity android:name=".subscriber.SubscriberActivity" />
     </application>
 
 </manifest>
