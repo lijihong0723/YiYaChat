@@ -19,7 +19,9 @@
     <com.chaychan.library.BottomBarLayout
         android:id="@+id/main_ll_tab"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="50dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
 
         <com.chaychan.library.BottomBarItem
             android:layout_width="0dp"

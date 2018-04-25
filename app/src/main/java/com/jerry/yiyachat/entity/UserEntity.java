@@ -84,7 +84,6 @@ public class UserEntity extends DataSupport {
     public void setPhoto(byte[] photo) {
         if (photo != null) {
             this.photo = photo;
-            photoBitmap = BitmapFactory.decodeByteArray(photo, 0, photo.length);
         }
     }
 
@@ -97,6 +96,9 @@ public class UserEntity extends DataSupport {
     }
 
     public Bitmap getPhotoBitmap() {
+        if (photo != null && photoBitmap == null) {
+            photoBitmap = BitmapFactory.decodeByteArray(photo, 0, photo.length);
+        }
         return photoBitmap;
     }
 

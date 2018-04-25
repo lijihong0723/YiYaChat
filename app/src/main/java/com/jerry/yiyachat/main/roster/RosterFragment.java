@@ -87,7 +87,11 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
                 tvUserName.setText(item.getUserName());
 
                 ImageView ivPhoto = holder.getView(R.id.roster_item_iv_photo);
-                ivPhoto.setImageBitmap(item.getPhotoBitmap());
+                if(item.getPhotoBitmap() == null) {
+                    ivPhoto.setImageResource(R.mipmap.general_default_photo);
+                } else {
+                    ivPhoto.setImageBitmap(item.getPhotoBitmap());
+                }
             }
         });
     }
