@@ -29,7 +29,8 @@ class RosterModel implements RosterContract.IRosterModel {
 
     private List<UserEntity> loadFromDB() {
         String type = Integer.toString(UserEntity.TYPE_ROSTER);
-        return DataSupport.where("type=?", type).find(UserEntity.class);
+        String acceptType = Integer.toString(UserEntity.TYPE_SUBSCRIBE_ROSTER);
+        return DataSupport.where("type=? or type=?", type, acceptType).find(UserEntity.class);
     }
 
     private List<UserEntity> loadFromServer() {

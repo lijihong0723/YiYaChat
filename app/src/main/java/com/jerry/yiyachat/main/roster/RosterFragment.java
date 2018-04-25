@@ -109,4 +109,8 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
             }
         }
     }
+
+    public void SubscriberAccepted(UserEntity userEntity) {
+
+    }
 }

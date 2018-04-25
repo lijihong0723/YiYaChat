@@ -15,13 +15,16 @@ import java.util.List;
 public class UserEntity extends DataSupport {
 
     // 通过群组得到的用户信息
-    public static final int TYPE_GROUP          = 0;
+    public static final int TYPE_GROUP              = 0;
     // 向我发出请求的用户信息
-    public static final int TYPE_SUBSCRIBE_FROM = 1;
+    public static final int TYPE_SUBSCRIBE_FROM     = 1;
     // 由我发出请求的用户信息
-    public static final int TYPE_SUBSCRIBE_TO   = 2;
+    public static final int TYPE_SUBSCRIBE_TO       = 2;
     // 已成为好友的用户信息
-    public static final int TYPE_ROSTER         = 3;
+    public static final int TYPE_ROSTER             = 3;
+    public static final int TYPE_SUBSCRIBE_ROSTER   = 4;
+
+    private int id;
 
     @Column(unique = true)
     private String jid;
@@ -36,8 +39,11 @@ public class UserEntity extends DataSupport {
 
     private int type;
 
+    public UserEntity() {
+    }
+
     public UserEntity(VCard vCard) {
-        this.setJid(vCard.getJabberId());
+        this.setJid(vCard.getFrom());
         this.userName = vCard.getNickName();
         this.photo = vCard.getAvatar();
     }
@@ -100,5 +106,13 @@ public class UserEntity extends DataSupport {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

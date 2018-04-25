@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <ImageView
@@ -14,6 +14,33 @@
         android:id="@+id/subscriber_tv_nick_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"/>
+        android:layout_toRightOf="@id/subscriber_iv_photo"
+        android:layout_centerVertical="true"/>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/subscriber_btn_accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="7dp"
+        android:padding="3dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:text="@string/subscriber_accept" />
+
+    <TextView
+        android:id="@+id/subscriber_tv_accepted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="7dp"
+        android:layout_centerVertical="true"
+        android:textColor="@color/selector_grey"
+        android:text="@string/subscriber_accepted"/>
+
+</RelativeLayout>

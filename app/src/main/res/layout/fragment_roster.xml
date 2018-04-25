@@ -3,16 +3,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/roster_ll_subscribers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:clickable="true">
 
+        <ImageView
+            android:layout_margin="7dp"
+            android:id="@+id/roster_iv_photo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/main_tab_roster_subscriber"/>
+
         <TextView
+            android:layout_toRightOf="@id/roster_iv_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:text="新的朋友" />
 
         <TextView
@@ -20,9 +29,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="有"
-            android:layout_marginLeft="20dp" />
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_roster"

@@ -107,6 +107,7 @@ class SubscribePresenceStanzaListener implements StanzaListener {
         try {
             VCard vCard = vCardManager.loadVCard(packet.getFrom());
             UserEntity userEntity = new UserEntity(vCard);
+            userEntity.setJid(packet.getFrom());
             userEntity.setType(UserEntity.TYPE_SUBSCRIBE_FROM);
             userEntity.save();
         } catch (Exception e) {
