@@ -8,12 +8,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hwangjr.rxbus.RxBus;
 import com.jerry.recyclerviewutil.RecyclerItemClickListener;
 import com.jerry.recyclerviewutil.adapter.CommonAdapter;
 import com.jerry.recyclerviewutil.adapter.CommonViewHolder;
 import com.jerry.yiyachat.R;
 import com.jerry.yiyachat.entity.UserEntity;
 import com.jerry.yiyachat.mvp.BaseMVPActivity;
+import com.jerry.yiyachat.util.Constants;
 
 import org.litepal.crud.DataSupport;
 
@@ -72,16 +74,21 @@ public class SubscriberActivity
         rvSubscribers.addOnItemTouchListener(new RecyclerItemClickListener(rvSubscribers) {
             @Override
             public void onItemClick(RecyclerView.ViewHolder vh) {
+                // 接受后，更新本地数据库
                 UserEntity subscriber = subscribers.get(vh.getAdapterPosition());
                 presenter.acceptSubscription(subscriber.getJid());
                 subscriber.setType(UserEntity.TYPE_SUBSCRIBE_ROSTER);
                 subscriber.update(subscriber.getId());
 
+                // 接受后，更新控件状态
                 CommonViewHolder holder = (CommonViewHolder) vh;
                 TextView tvAccepted = holder.getView(R.id.subscriber_tv_accepted);
                 Button btnAccept = holder.getView(R.id.subscriber_btn_accept);
                 tvAccepted.setVisibility(View.VISIBLE);
                 btnAccept.setVisibility(View.GONE);
+
+                // 接受后，更新好友列表数据
+                RxBus.get().post(Constants.EventType.SUBSCRIBER_ACCEPTED, subscriber);
             }
         });
     }

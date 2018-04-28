@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
 import com.jerry.recyclerviewutil.RecyclerItemClickListener;
 import com.jerry.recyclerviewutil.adapter.CommonAdapter;
 import com.jerry.recyclerviewutil.adapter.CommonViewHolder;
@@ -20,6 +22,7 @@ import com.jerry.yiyachat.R;
 import com.jerry.yiyachat.entity.UserEntity;
 import com.jerry.yiyachat.mvp.BaseMVPFragment;
 import com.jerry.yiyachat.subscriber.SubscriberActivity;
+import com.jerry.yiyachat.util.Constants;
 import com.jerry.yiyachat.vcard.VCardActivity;
 
 import java.util.List;
@@ -36,6 +39,7 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
 
     private View rootView;
     private List<UserEntity> users;
+    private CommonAdapter<UserEntity> adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,8 +83,7 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
     @Override
     public void onLoadSucceed(List<UserEntity> users) {
         this.users = users;
-        rvRoster.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvRoster.setAdapter(new CommonAdapter<UserEntity>(users, R.layout.roster_recycle_item) {
+        adapter = new CommonAdapter<UserEntity>(users, R.layout.roster_recycle_item) {
             @Override
             protected void bindViewHolder(CommonViewHolder holder, UserEntity item) {
                 TextView tvUserName = holder.getView(R.id.tv_user_name);
@@ -93,7 +96,9 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
                     ivPhoto.setImageBitmap(item.getPhotoBitmap());
                 }
             }
-        });
+        };
+        rvRoster.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvRoster.setAdapter(adapter);
     }
 
     @Override
@@ -114,7 +119,9 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
         }
     }
 
+    @Subscribe(tags = { @Tag(Constants.EventType.SUBSCRIBER_ACCEPTED) })
     public void SubscriberAccepted(UserEntity userEntity) {
-
+        users.add(userEntity);
+        adapter.notifyDataSetChanged();
     }
 }
