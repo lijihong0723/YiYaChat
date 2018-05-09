@@ -1,5 +1,9 @@
 package com.jerry.yiyachat.chat;
 
+import com.jerry.yiyachat.entity.MessageEntity;
+
+import java.util.List;
+
 public class ChatPresenter extends ChatContract.IChatPresenter {
 
     private ChatContract.IChatModel model;
@@ -11,5 +15,11 @@ public class ChatPresenter extends ChatContract.IChatPresenter {
     @Override
     void sendMessage(String messageInfo) {
         model.sendMessage(messageInfo);
+    }
+
+    @Override
+    void loadMessage(String jid) {
+        List<MessageEntity> messageEntities = model.loadMessage(jid);
+        view.onLoadMessageSucceed(messageEntities);
     }
 }

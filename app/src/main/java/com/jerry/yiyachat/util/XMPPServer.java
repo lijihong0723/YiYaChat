@@ -23,6 +23,7 @@ import org.jivesoftware.smackx.vcardtemp.packet.VCard;
 import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class XMPPServer {
 
@@ -88,7 +89,10 @@ class ChatMessageStenzaListener implements StanzaListener {
             UserEntity userEntity = DataSupport.where(
                     "jid = ?", message.getFrom().substring(0, message.getFrom().indexOf('/'))).findFirst(UserEntity.class);
             messageEntity.setUserEntity(userEntity);
-            messageEntity.save();
+            messageEntity.setDate(new Date());
+            if (!messageEntity.save()) {
+                System.out.println("============save failed==========");
+            }
 
             RxBus.get().post(Constants.EventType.CHAT_MESSAGE_RECEIVED, messageEntity);
         }

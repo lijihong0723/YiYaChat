@@ -11,10 +11,10 @@
         android:clickable="true">
 
         <ImageView
-            android:layout_margin="7dp"
             android:id="@+id/roster_iv_photo"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_margin="7dp"
             android:src="@mipmap/main_tab_roster_subscriber"/>
 
         <TextView

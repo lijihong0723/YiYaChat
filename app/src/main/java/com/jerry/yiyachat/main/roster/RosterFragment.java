@@ -2,8 +2,8 @@ package com.jerry.yiyachat.main.roster;
 
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -46,7 +46,7 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
                              Bundle savedInstanceState) {
         // 以下逻辑是为了防止重复创建View
         if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_roster, container, false);
+            rootView = inflater.inflate(R.layout.roster_fragment, container, false);
             ButterKnife.bind(this, rootView);
             rvRoster.addOnItemTouchListener(new RecyclerItemClickListener(rvRoster) {
                 @Override
@@ -57,6 +57,8 @@ public class RosterFragment extends BaseMVPFragment<RosterContract.IRosterView, 
                     getContext().startActivity(intent);
                 }
             });
+            rvRoster.addItemDecoration(new DividerItemDecoration(
+                            getContext(), LinearLayoutManager.VERTICAL));
         } else {
             ViewGroup parent = (ViewGroup) rootView.getParent();
             if (parent != null) {

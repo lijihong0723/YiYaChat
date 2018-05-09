@@ -2,7 +2,6 @@ package com.jerry.yiyachat.main.message;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,9 +20,6 @@ import com.jerry.yiyachat.chat.ChatActivity;
 import com.jerry.yiyachat.entity.MessageEntity;
 import com.jerry.yiyachat.mvp.BaseMVPFragment;
 import com.jerry.yiyachat.util.Constants;
-import com.jerry.yiyachat.vcard.VCardActivity;
-
-import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +27,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MessageFragment extends BaseMVPFragment<MessageContract.IMessageView, MessagePresenter> {
+public class MessageFragment extends BaseMVPFragment<MessageContract.IMessageView, MessagePresenter>
+    implements MessageContract.IMessageView {
 
     @BindView(R.id.message_rv_message)
     RecyclerView rvMessages;
@@ -46,10 +43,10 @@ public class MessageFragment extends BaseMVPFragment<MessageContract.IMessageVie
 
         messageEntities = new ArrayList<>();
         rvMessages.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvMessages.setAdapter(new CommonAdapter<MessageEntity>(messageEntities, R.layout.message_recycler_item) {
+        rvMessages.setAdapter(new CommonAdapter<MessageEntity>(messageEntities, R.layout.main_message_recycler_item) {
             @Override
             protected void bindViewHolder(CommonViewHolder holder, MessageEntity item) {
-                ImageView ivPhoto = holder.getView(R.id.message_item_iv_photo);
+                ImageView ivPhoto = holder.getView(R.id.main_message_item_iv_photo);
                 ivPhoto.setImageBitmap(item.getUserEntity().getPhotoBitmap());
 
                 TextView tvNickName = holder.getView(R.id.message_item_tv_nick_name);
@@ -74,6 +71,12 @@ public class MessageFragment extends BaseMVPFragment<MessageContract.IMessageVie
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        present.loadMessage();
+    }
+
+    @Override
     protected MessagePresenter createPresenter() {
         return new MessagePresenter();
     }
@@ -88,6 +91,12 @@ public class MessageFragment extends BaseMVPFragment<MessageContract.IMessageVie
             messageEntities.add(0, messageEntity);
         }
 
+        rvMessages.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void onMessageLoaded(List<MessageEntity> messages) {
+        messageEntities.addAll(messages);
         rvMessages.getAdapter().notifyDataSetChanged();
     }
 }

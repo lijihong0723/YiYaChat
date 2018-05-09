@@ -61,6 +61,12 @@ public class ChatActivity extends BaseMVPActivity<ChatContract.IChatView, ChatCo
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.loadMessage(jid);
+    }
+
+    @Override
     protected ChatContract.IChatPresenter createPresent() {
         return new ChatPresenter(jid);
     }
@@ -72,6 +78,7 @@ public class ChatActivity extends BaseMVPActivity<ChatContract.IChatView, ChatCo
             case R.id.chat_btn_send:
                 String messageInfo = etMessageContent.getText().toString();
                 etMessageContent.setText("");
+
                 presenter.sendMessage(messageInfo);
                 showMessage(new MessageEntity(messageInfo));
                 break;
@@ -81,6 +88,14 @@ public class ChatActivity extends BaseMVPActivity<ChatContract.IChatView, ChatCo
     @Subscribe(tags = { @Tag(Constants.EventType.CHAT_MESSAGE_RECEIVED)})
     public void showMessage(MessageEntity messageEntity) {
         messages.add(messageEntity.getMessageInfo());
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onLoadMessageSucceed(List<MessageEntity> messages) {
+        for (MessageEntity message : messages) {
+            this.messages.add(message.getMessageInfo());
+        }
         adapter.notifyDataSetChanged();
     }
 }
