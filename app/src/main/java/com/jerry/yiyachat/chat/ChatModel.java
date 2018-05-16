@@ -31,6 +31,6 @@ public class ChatModel implements ChatContract.IChatModel {
 
     @Override
     public List<MessageEntity> loadMessage(String jid) {
-        return DataSupport.findAll(MessageEntity.class);
+        return DataSupport.findAll(MessageEntity.class, true);
     }
 }

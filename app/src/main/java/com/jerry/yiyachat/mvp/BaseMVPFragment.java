@@ -18,11 +18,6 @@ public abstract class BaseMVPFragment<V, P extends BasePresenter<V>> extends Fra
         super.onCreate(savedInstanceState);
         present = createPresenter();
         RxBus.get().register(this);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         present.attach((V) this);
     }
 

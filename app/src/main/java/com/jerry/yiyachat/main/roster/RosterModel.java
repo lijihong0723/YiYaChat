@@ -1,6 +1,7 @@
 package com.jerry.yiyachat.main.roster;
 
 import com.jerry.yiyachat.entity.UserEntity;
+import com.jerry.yiyachat.util.AppDataHolder;
 import com.jerry.yiyachat.util.XMPPServer;
 
 import org.jivesoftware.smack.roster.Roster;
@@ -23,6 +24,9 @@ class RosterModel implements RosterContract.IRosterModel {
         if (users == null || users.isEmpty()) {
             users = loadFromServer();
         }
+
+        // 加载得到的用户实体信息保存到AppDataHolder中，以便复用
+        AppDataHolder.AddUserEntities(users);
 
         return users;
     }
